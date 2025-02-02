@@ -11,7 +11,7 @@ public class PlayerAttackScript : MonoBehaviour
     private Transform sourceFireOrb;
 
     [SerializeField]
-    private float fireRate = 1.0f;
+    private float fireRate = 0.2f;
     [SerializeField]
     private float nextTimeFire = 0;
     
@@ -31,21 +31,26 @@ public class PlayerAttackScript : MonoBehaviour
     public void AttackWithOrbFunction()
     {
          
-        if (Input.GetButtonDown("Fire1")  && Time.time >= fireRate)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeFire)
         {
             ShootFunction(orb);
-            nextTimeFire = 0;
+            nextTimeFire = Time.time + fireRate;
         }
-        nextTimeFire = Time.deltaTime + fireRate;
+        
     }
 
     public void ShootFunction(GameObject gameObject)
     {
-     GameObject orb =   Instantiate(gameObject,sourceFireOrb.position , transform.rotation,sourceFireOrb);
-        Vector2 direction  = Vector2.right;
-        if (transform.localScale.x < 0)
-        {
-            
-        }
+        GameObject orb = Instantiate(gameObject, sourceFireOrb.position, transform.rotation, sourceFireOrb);
+        orb.transform.SetParent(null);
+        //   Vector2 direction  = Vector2.right;
+        //   if (transform.localScale.x < 0)
+        //   {
+        //       orb.transform.Translate(-direction * 10f );
+        //   }
+        //   else
+        //   {
+        //       orb.transform.Translate(direction * 10f);
+        //   }
     }
 }

@@ -13,9 +13,7 @@ public abstract class Orb : MonoBehaviour
         get { return hitDamage; } 
     }
 
-    private void Update()
-    {
-    }
+    
 
 
     public abstract void InitOrb();
