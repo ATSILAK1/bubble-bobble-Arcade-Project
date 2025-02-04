@@ -24,6 +24,9 @@
 
 		private int m_NLives;
 		public int NLives { get { return m_NLives; } }
+
+		private int m_NEnemy; 
+		public int NEnemy {  get { return m_NEnemy; } set { m_NEnemy = value; } }
 		void DecrementNLives(int decrement)
 		{
 			SetNLives(m_NLives - decrement);
@@ -34,6 +37,8 @@
 			m_NLives = nLives;
 			EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eScore = m_Score, eNLives = m_NLives});
 		}
+
+				
 		#endregion
 
 
@@ -159,10 +164,20 @@
 		{
 			Application.Quit();
 		}
-		#endregion
+        #endregion
 
-		#region GameState methods
-		private void Menu()
+
+        #region CallBacks To Events issued by Ennemy 
+
+		private void EnemyKilled(EnemyHasBeenHitEvent e)
+		{
+		
+		}
+
+        #endregion
+
+        #region GameState methods
+        private void Menu()
 		{
 			SetTimeScale(1);
 			m_GameState = GameState.gameMenu;

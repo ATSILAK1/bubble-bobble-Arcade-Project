@@ -77,7 +77,7 @@ public class PlayerMovementScript : MonoBehaviour
         float raycastLength = 0.1f;
         RaycastHit2D hit = Physics2D.Raycast(rayCastSource.position, Vector2.down, raycastLength);
 
-        if (hit.collider)
+        if (rigidbody2D.linearVelocityY == 0  &&hit.collider)
         {
 
             Debug.DrawRay(rayCastSource.position, Vector2.down * raycastLength, Color.red);

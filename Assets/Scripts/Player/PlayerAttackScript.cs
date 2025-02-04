@@ -14,6 +14,8 @@ public class PlayerAttackScript : MonoBehaviour
     private float fireRate = 0.2f;
     [SerializeField]
     private float nextTimeFire = 0;
+
+    private 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,16 +43,8 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void ShootFunction(GameObject gameObject)
     {
-        GameObject orb = Instantiate(gameObject, sourceFireOrb.position, transform.rotation, sourceFireOrb);
+        GameObject orb = Instantiate(gameObject, sourceFireOrb.position, transform.rotation, sourceFireOrb );
         orb.transform.SetParent(null);
-        //   Vector2 direction  = Vector2.right;
-        //   if (transform.localScale.x < 0)
-        //   {
-        //       orb.transform.Translate(-direction * 10f );
-        //   }
-        //   else
-        //   {
-        //       orb.transform.Translate(direction * 10f);
-        //   }
+     
     }
 }
