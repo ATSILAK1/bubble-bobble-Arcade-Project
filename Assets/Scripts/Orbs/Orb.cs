@@ -1,3 +1,4 @@
+using SDD.Events;
 using STUDENT_NAME;
 using UnityEngine;
 
@@ -46,6 +47,7 @@ public abstract class Orb : MonoBehaviour
         Debug.Log("Collided with some element " + collision.gameObject.name);
         if (collision.gameObject.GetComponent<Enemy>() != null)
         {
+            EventManager.Instance.Raise(new EnemyHasBeenHitEvent() );
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
