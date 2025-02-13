@@ -96,6 +96,9 @@
 
 			//Score Item
 			EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
+
+			//Enemy 
+			EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyKilled);
 		}
 
 		public override void UnsubscribeEvents()
@@ -111,6 +114,10 @@
 
 			//Score Item
 			EventManager.Instance.RemoveListener<ScoreItemEvent>(ScoreHasBeenGained);
+
+			// Enemy 
+			EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent> (EnemyKilled);
+
 		}
 		#endregion
 
@@ -167,14 +174,6 @@
         #endregion
 
 
-        #region CallBacks To Events issued by Ennemy 
-
-		private void EnemyKilled(EnemyHasBeenHitEvent e)
-		{
-		
-		}
-
-        #endregion
 
         #region GameState methods
         private void Menu()
@@ -220,7 +219,18 @@
 			EventManager.Instance.Raise(new GameOverEvent());
 			if(SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.GAMEOVER_SFX);
 		}
-		#endregion
-	}
+        #endregion
+
+
+
+        #region CallBacks To Events issued by Ennemy 
+
+        private void EnemyKilled(EnemyHasBeenHitEvent e)
+        {
+			IncrementScore(100);
+        }
+
+        #endregion
+    }
 }
 
