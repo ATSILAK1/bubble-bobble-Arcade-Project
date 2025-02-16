@@ -60,3 +60,8 @@ public class ScoreItemEvent : SDD.Events.Event
 
 public class EnemyHasBeenHitEvent : SDD.Events.Event { }
 #endregion
+
+#region Player Events 
+
+public class PlayerHasBeenHitEvent : SDD.Events.Event { }
+#endregion

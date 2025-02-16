@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
+using SDD.Events;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -44,5 +45,13 @@ public abstract class Enemy : MonoBehaviour
         }
         
     }
-
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerMovementScript>() != null) 
+        {
+            Debug.Log("il y a contact");
+            EventManager.Instance.Raise(new PlayerHasBeenHitEvent());
+        }
+        Debug.Log("il Y a pas contact");
+    }
 }

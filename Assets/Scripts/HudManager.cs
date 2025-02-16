@@ -15,6 +15,8 @@
 		#region Labels & Values
 		[SerializeField]
 		private TMP_Text lScore;
+		[SerializeField]
+		private TMP_Text lHealthPoint;
 		// TO DO
 		#endregion
 		
@@ -43,6 +45,7 @@
         protected override void GameStatisticsChanged(GameStatisticsChangedEvent e)
 		{
 			lScore.text = "Score : "+e.eScore.ToString();
+			lHealthPoint.text = "Health :"+ e.eNLives.ToString();
 		}
 		#endregion
 

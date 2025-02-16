@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovinEnemy : Enemy
+public class MovingEnemy : Enemy
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,4 +14,8 @@ public class MovinEnemy : Enemy
         base.Update();
     }
 
+     void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+    }
 }

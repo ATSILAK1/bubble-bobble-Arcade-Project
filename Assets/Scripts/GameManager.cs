@@ -87,18 +87,22 @@
 		{
 			base.SubscribeEvents();
 			
-			//MainMenuManager
+			// MainMenuManager
 			EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
 			EventManager.Instance.AddListener<PlayButtonClickedEvent>(PlayButtonClicked);
 			EventManager.Instance.AddListener<ResumeButtonClickedEvent>(ResumeButtonClicked);
 			EventManager.Instance.AddListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
 			EventManager.Instance.AddListener<QuitButtonClickedEvent>(QuitButtonClicked);
 
-			//Score Item
+			// Score Item
 			EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
 
-			//Enemy 
+			// Enemy 
 			EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyKilled);
+
+			// Player
+			EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHit);
+			
 		}
 
 		public override void UnsubscribeEvents()
@@ -118,6 +122,9 @@
 			// Enemy 
 			EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent> (EnemyKilled);
 
+			//Player 
+			EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHit);
+
 		}
 		#endregion
 
@@ -135,6 +142,7 @@
 		void InitNewGame(bool raiseStatsEvent = true)
 		{
 			SetScore(0);
+			SetNLives(m_NStartLives);
 		}
 		#endregion
 
@@ -231,6 +239,12 @@
         }
 
         #endregion
+
+		private void PlayerHit(PlayerHasBeenHitEvent e)
+		{
+		 DecrementNLives(1);
+			
+		}
     }
 }
 
