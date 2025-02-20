@@ -6,19 +6,51 @@
 	using System.Collections.Generic;
 	using SDD.Events;
 	using System.Linq;
+    using UnityEditor.Experimental.GraphView;
 
-	public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
+    public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
+	public enum ModeState { Dark , Light }
 
 	public class GameManager : Manager<GameManager>
 	{
 		#region Game State
 		private GameState m_GameState;
 		public bool IsPlaying { get { return m_GameState == GameState.gamePlay; } }
-		#endregion
+        #endregion
 
-		//LIVES
-		#region Lives
-		[Header("GameManager")]
+        #region Mode
+		
+		private ModeState currentModeState = ModeState.Dark;
+		public ModeState CurrentModeState { get { return currentModeState; } }
+
+		void SwapModeState()
+		{
+			Debug.Log("Mode  Current state "+ currentModeState );
+
+			
+
+			if (currentModeState == ModeState.Dark)
+			{
+				currentModeState = ModeState.Light;
+                GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = Color.gray;
+			}
+			
+			else
+			{
+				currentModeState = ModeState.Dark;
+                GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = Color.black;
+            }
+			Debug.Log("Mode After Swap " + currentModeState);
+			
+
+        }
+
+
+        #endregion
+
+        //LIVES
+        #region Lives
+        [Header("GameManager")]
 		[SerializeField]
 		private int m_NStartLives;
 
@@ -40,7 +72,6 @@
 
 				
 		#endregion
-
 
 		#region Score
 		private float m_Score;
@@ -81,7 +112,6 @@
 		}
 		#endregion
 
-
 		#region Events' subscription
 		public override void SubscribeEvents()
 		{
@@ -102,6 +132,9 @@
 
 			// Player
 			EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHit);
+
+			// Mode Swap 
+			EventManager.Instance.AddListener<ModeHasBeenChangedEvent>(ModeChange);
 			
 		}
 
@@ -124,8 +157,10 @@
 
 			//Player 
 			EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHit);
-
-		}
+			
+			//Mode Swap 
+            EventManager.Instance.AddListener<ModeHasBeenChangedEvent>(ModeChange);
+        }
 		#endregion
 
 		#region Manager implementation
@@ -181,8 +216,6 @@
 		}
         #endregion
 
-
-
         #region GameState methods
         private void Menu()
 		{
@@ -229,8 +262,6 @@
 		}
         #endregion
 
-
-
         #region CallBacks To Events issued by Ennemy 
 
         private void EnemyKilled(EnemyHasBeenHitEvent e)
@@ -240,11 +271,20 @@
 
         #endregion
 
-		private void PlayerHit(PlayerHasBeenHitEvent e)
+        #region CallBacks To Events issued By Player
+        private void PlayerHit(PlayerHasBeenHitEvent e)
 		{
 		 DecrementNLives(1);
 			
 		}
+        #endregion
+
+        #region CallBacks To Events Issued by Mode Changing 
+		private void ModeChange(ModeHasBeenChangedEvent e)
+		{
+			SwapModeState();
+		}
+        #endregion
     }
 }
 

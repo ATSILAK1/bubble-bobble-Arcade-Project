@@ -1,12 +1,15 @@
 using System;
+using STUDENT_NAME;
 using UnityEngine;
 
 
-enum OrbType { Fire_Orb , Water_Orb , Light_Orb }
+
 public class PlayerAttackScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject orb;
+    private GameObject lightOrb;
+    [SerializeField]
+    private GameObject darkOrb;
     [SerializeField]
     private Transform sourceFireOrb;
 
@@ -15,7 +18,6 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField]
     private float nextTimeFire = 0;
 
-    private 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,7 +37,11 @@ public class PlayerAttackScript : MonoBehaviour
          
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeFire)
         {
-            ShootFunction(orb);
+            Debug.Log(GameManager.Instance.CurrentModeState.ToString());
+            if (GameManager.Instance.CurrentModeState == ModeState.Dark) 
+                ShootFunction(darkOrb);
+            if (GameManager.Instance.CurrentModeState== ModeState.Light)
+                ShootFunction(lightOrb);
             nextTimeFire = Time.time + fireRate;
         }
         

@@ -65,3 +65,8 @@ public class EnemyHasBeenHitEvent : SDD.Events.Event { }
 
 public class PlayerHasBeenHitEvent : SDD.Events.Event { }
 #endregion
+
+#region Mode Events  
+public class ModeHasBeenChangedEvent : SDD.Events.Event { }
+
+#endregion

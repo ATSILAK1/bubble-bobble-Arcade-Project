@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class MovingEnemy : Enemy
+public class DarkEnemy : Enemy
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        EnemyType = GlobalEnum.TypeOfElement.Dark;
         base.Start();
     }
 
@@ -14,7 +15,7 @@ public class MovingEnemy : Enemy
         base.Update();
     }
 
-     void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
     }

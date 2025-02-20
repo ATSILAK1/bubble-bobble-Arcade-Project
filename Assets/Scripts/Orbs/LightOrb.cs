@@ -4,6 +4,7 @@ public class FireOrb : Orb
 {
     private void Start()
     {
+        InitOrb();
        base.Start();
     }
 
@@ -24,6 +25,6 @@ public class FireOrb : Orb
     }
     public override void InitOrb()
     {
-        throw new System.NotImplementedException();
+       orbType = GlobalEnum.TypeOfElement.Light;
     }
 }

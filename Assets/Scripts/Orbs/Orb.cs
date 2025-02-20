@@ -1,6 +1,7 @@
 using SDD.Events;
 using STUDENT_NAME;
 using UnityEngine;
+using static GlobalEnum;
 
 public abstract class Orb : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public abstract class Orb : MonoBehaviour
     [SerializeField]
     protected int hitDamage; 
 
+    protected TypeOfElement orbType;
     protected Vector2 direction = Vector2.zero;
 
     protected float destroyTime = 5f; 
@@ -45,12 +47,27 @@ public abstract class Orb : MonoBehaviour
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collided with some element " + collision.gameObject.name);
-        if (collision.gameObject.GetComponent<Enemy>() != null)
-        {
+        var gameObjectOfCollision = collision.gameObject;
+       
+        if (gameObjectOfCollision == null) return ; 
+        
+        
+        if ( gameObjectOfCollision.GetComponent<Enemy>().EnemyType != orbType )
+        { 
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() );
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+        else if ( gameObjectOfCollision.GetComponent<Enemy>().EnemyType == orbType )
+        {
+            Destroy(gameObject);
+            EventManager.Instance.Raise(new ModeHasBeenChangedEvent());
+        }
+
+
+        if (gameObjectOfCollision.tag == "PlatForme")
+            Destroy(gameObject);
+
     }
     
 }

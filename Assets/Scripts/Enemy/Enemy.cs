@@ -4,6 +4,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
 using SDD.Events;
 using UnityEngine;
+using static GlobalEnum;
+
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -15,7 +17,12 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField]
     private float distanceOfDetection = 0.1f;
+    
     protected Rigidbody2D Rigidbody2D;
+    [SerializeField]
+    protected TypeOfElement enemyType; 
+
+    public TypeOfElement EnemyType { get { return enemyType; }  set { enemyType = value; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected void Awake()
