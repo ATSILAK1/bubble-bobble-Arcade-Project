@@ -67,6 +67,9 @@ public class PlayerHasBeenHitEvent : SDD.Events.Event { }
 #endregion
 
 #region Mode Events  
-public class ModeHasBeenChangedEvent : SDD.Events.Event { }
+public class ModeHasBeenChangedEvent : SDD.Events.Event 
+{
+	public GlobalEnum.TypeOfElement TypeOfElement ; 
+}
 
 #endregion
