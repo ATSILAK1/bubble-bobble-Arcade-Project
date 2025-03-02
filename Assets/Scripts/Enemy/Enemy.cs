@@ -61,4 +61,6 @@ public abstract class Enemy : MonoBehaviour
         }
         Debug.Log("il Y a pas contact");
     }
+    
+
 }

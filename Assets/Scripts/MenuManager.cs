@@ -81,6 +81,7 @@ namespace STUDENT_NAME
 		public void PlayButtonHasBeenClicked()
 		{
 			EventManager.Instance.Raise(new PlayButtonClickedEvent());
+			Debug.Log("Play Button Has Been Clicked ");
 		}
 
 		public void ResumeButtonHasBeenClicked()

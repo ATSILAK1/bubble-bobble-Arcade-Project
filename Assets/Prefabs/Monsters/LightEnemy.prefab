@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 2495680892594975501}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8820946, y: 0.61617476, z: 0}
+  m_LocalPosition: {x: -1.8820946, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2.0405, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 3980397294112028118}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.928413, y: 0.0028183162, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2.0405, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -145,7 +145,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8867924, g: 0.031790547, b: 0.031790547, a: 1}
+  m_Color: {r: 0.07058824, g: 0.80392164, b: 0.8313726, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
   - {fileID: 3118733523170068566}
   pathListCurrentIndex: 1
   distanceOfDetection: 1
+  enemyType: 0
 --- !u!50 &1748047774499804699
 Rigidbody2D:
   serializedVersion: 5
@@ -181,7 +182,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3980397294112028118}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -271,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 9198922595140593087}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.7479053, y: 0.61617476, z: 0}
+  m_LocalPosition: {x: 5.98, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2.0405, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

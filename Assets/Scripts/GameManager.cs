@@ -1,15 +1,11 @@
 ﻿namespace STUDENT_NAME
 {
-	using System.Collections;
-	using UnityEngine;
-	using UnityEngine.UI;
-	using System.Collections.Generic;
-	using SDD.Events;
-	using System.Linq;
-    using UnityEditor.Experimental.GraphView;
+    using System.Collections;
+    using SDD.Events;
+    using UnityEngine;
 
     public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
-	public enum ModeState { Dark , Light }
+	
 
 	public class GameManager : Manager<GameManager>
 	{
@@ -20,25 +16,27 @@
 
         #region Mode
 		
-		private ModeState currentModeState = ModeState.Dark;
-		public ModeState CurrentModeState { get { return currentModeState; } }
+		private GlobalEnum.TypeOfElement currentModeState = GlobalEnum.TypeOfElement.Dark;
+		public GlobalEnum.TypeOfElement CurrentModeState { get { return currentModeState; } }
 
 		void SwapModeState()
 		{
 			Debug.Log("Mode  Current state "+ currentModeState );
+			// better to Call the camera one time than Find it 2 time 
+			var camera = GameObject.Find("Main Camera");
 
-			
 
-			if (currentModeState == ModeState.Dark)
+            if (currentModeState == GlobalEnum.TypeOfElement.Dark)
 			{
-				currentModeState = ModeState.Light;
-                GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = Color.gray;
+				currentModeState = GlobalEnum.TypeOfElement.Light;
+                
+                camera.GetComponent<Camera>().backgroundColor = Color.gray;
 			}
 			
 			else
 			{
-				currentModeState = ModeState.Dark;
-                GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = Color.black;
+				currentModeState = GlobalEnum.TypeOfElement.Dark;
+                camera.GetComponent<Camera>().backgroundColor = Color.black;
             }
 			Debug.Log("Mode After Swap " + currentModeState);
 			
@@ -69,7 +67,10 @@
 			m_NLives = nLives;
 			EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eScore = m_Score, eNLives = m_NLives});
 		}
-
+		 void DecrementNEnemy()
+		{
+			NEnemy--;
+		}
 				
 		#endregion
 
@@ -159,7 +160,7 @@
 			EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHit);
 			
 			//Mode Swap 
-            EventManager.Instance.AddListener<ModeHasBeenChangedEvent>(ModeChange);
+            EventManager.Instance.RemoveListener<ModeHasBeenChangedEvent>(ModeChange);
         }
 		#endregion
 
@@ -167,8 +168,10 @@
 		protected override IEnumerator InitCoroutine()
 		{
 			Menu();
+			
 			InitNewGame(); // essentiellement pour que les statistiques du jeu soient mise à jour en HUD
-			yield break;
+            SwapModeState();
+            yield break;
 		}
 		#endregion
 
@@ -219,7 +222,7 @@
         #region GameState methods
         private void Menu()
 		{
-			SetTimeScale(1);
+			SetTimeScale(0);
 			m_GameState = GameState.gameMenu;
 			if(MusicLoopsManager.Instance)MusicLoopsManager.Instance.PlayMusic(Constants.MENU_MUSIC);
 			EventManager.Instance.Raise(new GameMenuEvent());

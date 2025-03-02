@@ -1,4 +1,5 @@
 using System;
+using SDD.Events;
 using STUDENT_NAME;
 using UnityEngine;
 
@@ -29,19 +30,22 @@ public class PlayerAttackScript : MonoBehaviour
     void Update()
     {
         AttackWithOrbFunction();
+        ChangeModeFunction();
     }
 
 
     public void AttackWithOrbFunction()
     {
-         
+        var currentState = GameManager.Instance.CurrentModeState; 
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeFire)
         {
             Debug.Log(GameManager.Instance.CurrentModeState.ToString());
-            if (GameManager.Instance.CurrentModeState == ModeState.Dark) 
+            if (currentState == GlobalEnum.TypeOfElement.Dark) 
                 ShootFunction(darkOrb);
-            if (GameManager.Instance.CurrentModeState== ModeState.Light)
+            else
                 ShootFunction(lightOrb);
+            
+
             nextTimeFire = Time.time + fireRate;
         }
         
@@ -52,5 +56,13 @@ public class PlayerAttackScript : MonoBehaviour
         GameObject orb = Instantiate(gameObject, sourceFireOrb.position, transform.rotation, sourceFireOrb );
         orb.transform.SetParent(null);
      
+    }
+
+    private void ChangeModeFunction()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            EventManager.Instance.Raise(new ModeHasBeenChangedEvent());
+        }
     }
 }

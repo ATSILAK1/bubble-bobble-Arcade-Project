@@ -5,12 +5,15 @@ using static GlobalEnum;
 
 public abstract class Orb : MonoBehaviour
 {
+    private Rigidbody2D rigidbody2D;
+
     [SerializeField]
     protected float speed = 5.0f; 
     [SerializeField]
     protected int hitDamage; 
 
     protected TypeOfElement orbType;
+
     protected Vector2 direction = Vector2.zero;
 
     protected float destroyTime = 5f; 
@@ -23,6 +26,7 @@ public abstract class Orb : MonoBehaviour
 
     protected void Start()
     {
+        rigidbody2D = GetComponent<Rigidbody2D>();
         if (transform.parent != null)
         {
             direction = transform.parent.right;
@@ -40,6 +44,7 @@ public abstract class Orb : MonoBehaviour
 
         transform.Translate(direction * speed * Time.deltaTime);
     }
+
     public abstract void InitOrb();
     public abstract void DamageEnemyFunction();
 
@@ -49,25 +54,23 @@ public abstract class Orb : MonoBehaviour
         Debug.Log("Collided with some element " + collision.gameObject.name);
         var gameObjectOfCollision = collision.gameObject;
        
-        if (gameObjectOfCollision == null) return ; 
-        
-        
-        if ( gameObjectOfCollision.GetComponent<Enemy>().EnemyType != orbType )
+        if (gameObjectOfCollision == null) return ;
+
+        if (gameObjectOfCollision.CompareTag("PlatForme"))
+        {
+            Destroy(gameObject);
+            return ;
+        }
+        if ( gameObjectOfCollision.GetComponent<Enemy>() != null  )
         { 
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() );
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-        else if ( gameObjectOfCollision.GetComponent<Enemy>().EnemyType == orbType )
-        {
-            Destroy(gameObject);
-            EventManager.Instance.Raise(new ModeHasBeenChangedEvent());
-        }
+        
 
 
-        if (gameObjectOfCollision.tag == "PlatForme")
-            Destroy(gameObject);
-
+        
     }
     
 }
