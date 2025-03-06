@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class LightPlatforme :  MonoBehaviour, ILightElement,IEventHandler
 {
-    private void Start()
+    private void Awake()
     {
         SubscribeEvents();
+    }
+    private void Start()
+    {
+        SwapModeFunction();
     }
 
     private void OnDestroy()
@@ -22,19 +26,27 @@ public class LightPlatforme :  MonoBehaviour, ILightElement,IEventHandler
     {
         EventManager.Instance.RemoveListener<ModeHasBeenChangedEvent>(ModeHasChangedCallBack);
     }
-
-    void ModeHasChangedCallBack(ModeHasBeenChangedEvent e)
+    
+    void SwapModeFunction()
     {
-        if (e == null) return;
-
         if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light) // hack need to be changed 
         {
+
             gameObject.SetActive(true);
         }
         else
         {
             gameObject.SetActive(false);
         }
+    }
+
+
+    
+    void ModeHasChangedCallBack(ModeHasBeenChangedEvent e)
+    {
+        if (e == null) return;
+
+        SwapModeFunction();
 
     }
 }

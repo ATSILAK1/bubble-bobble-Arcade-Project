@@ -181,6 +181,7 @@
 		{
 			SetScore(0);
 			SetNLives(m_NStartLives);
+			
 		}
 		#endregion
 
@@ -236,6 +237,8 @@
 
 			if (MusicLoopsManager.Instance) MusicLoopsManager.Instance.PlayMusic(Constants.GAMEPLAY_MUSIC);
 			EventManager.Instance.Raise(new GamePlayEvent());
+
+			EventManager.Instance.Raise(new HealtUpdateHudEvent() { eHealth = NLives});
 		}
 
 		private void Pause()
@@ -278,6 +281,9 @@
         private void PlayerHit(PlayerHasBeenHitEvent e)
 		{
 		 DecrementNLives(1);
+			EventManager.Instance.Raise(new HealtUpdateHudEvent() { eHealth = NLives });
+			if(m_NLives == 0)
+				Over();
 			
 		}
         #endregion

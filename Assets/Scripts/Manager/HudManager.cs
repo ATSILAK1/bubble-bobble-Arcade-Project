@@ -16,7 +16,11 @@
 		[SerializeField]
 		private TMP_Text lScore;
 		[SerializeField]
-		private TMP_Text lHealthPoint;
+		private Image hearthSprite; 
+		[SerializeField]
+		private GameObject hearthHudHolderGameObject;
+
+
 		// TO DO
 		#endregion
 		
@@ -31,12 +35,14 @@
         {
             base.SubscribeEvents();
 			EventManager.Instance.AddListener<GameStatisticsChangedEvent>(GameStatisticsChanged);
+			EventManager.Instance.AddListener<HealtUpdateHudEvent>(HealthBarChangeCallBack);
         }
 
         public override void UnsubscribeEvents()
         {
             base.UnsubscribeEvents();
             EventManager.Instance.RemoveListener<GameStatisticsChangedEvent>(GameStatisticsChanged);
+            EventManager.Instance.RemoveListener<HealtUpdateHudEvent>(HealthBarChangeCallBack);
         }
 
         #endregion
@@ -45,8 +51,26 @@
         protected override void GameStatisticsChanged(GameStatisticsChangedEvent e)
 		{
 			lScore.text = "Score : "+e.eScore.ToString();
-			lHealthPoint.text = "Health :"+ e.eNLives.ToString();
+
+
+
+			
+
 		}
+
+		private void HealthBarChangeCallBack(HealtUpdateHudEvent e)
+		{
+            for (int i = 0; i < hearthHudHolderGameObject.transform.childCount; i++)
+            {
+                hearthHudHolderGameObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            for (int i = 0; i < e.eHealth; i++)
+            {
+				if (e.eHealth == i)
+					break;
+              hearthHudHolderGameObject.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
 		#endregion
 
 	}

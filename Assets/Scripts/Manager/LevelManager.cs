@@ -48,7 +48,7 @@ namespace STUDENT_NAME
         {
             Destroy(m_CurrentLevelGO);
             m_CurrentLevelGO = null;
-            m_CurrentLevelIndex = -1;
+            m_CurrentLevelIndex = 0;
         }
 
         void InstantiateLevel(int levelIndex)
@@ -66,6 +66,7 @@ namespace STUDENT_NAME
             InstantiateLevel(m_CurrentLevelIndex);
 
             EventManager.Instance.Raise(new LevelHasBeenInstantiatedEvent() { eLevel = m_CurrentLevel });
+            EventManager.Instance.Raise(new ModeHasBeenChangedEvent());
         }
         #endregion
 

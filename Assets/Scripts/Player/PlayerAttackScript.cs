@@ -36,7 +36,8 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void AttackWithOrbFunction()
     {
-        var currentState = GameManager.Instance.CurrentModeState; 
+        var currentState = GameManager.Instance.CurrentModeState; // need to change we dont need it anymore 
+                                                                  // Double orb not our feature
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeFire)
         {
             Debug.Log(GameManager.Instance.CurrentModeState.ToString());

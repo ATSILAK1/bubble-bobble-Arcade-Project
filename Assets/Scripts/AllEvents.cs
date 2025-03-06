@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
+using Unity.Multiplayer.Center.Common;
 
 #region GameManager Events
 public class GameMenuEvent : SDD.Events.Event
@@ -63,7 +64,9 @@ public class EnemyHasBeenHitEvent : SDD.Events.Event { }
 
 #region Player Events 
 
-public class PlayerHasBeenHitEvent : SDD.Events.Event { }
+public class PlayerHasBeenHitEvent : SDD.Events.Event {
+	public int eHealth;
+}
 #endregion
 
 #region Mode Events  
@@ -73,6 +76,10 @@ public class ModeHasBeenChangedEvent : SDD.Events.Event
 }
 #endregion
 
+#region HUD
+
+public class HealtUpdateHudEvent : SDD.Events.Event{  public int eHealth; }
+#endregion
 public class GoToNextLevelEvent : SDD.Events.Event
 {
 

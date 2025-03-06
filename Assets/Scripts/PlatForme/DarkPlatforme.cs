@@ -7,6 +7,7 @@ public class DarkPlatforme : MonoBehaviour, IDarkElement, IEventHandler
     private void Start()
     {
         SubscribeEvents();
+        SwapModeFunction();
     }
 
     private void OnDestroy()
@@ -23,20 +24,27 @@ public class DarkPlatforme : MonoBehaviour, IDarkElement, IEventHandler
         EventManager.Instance.RemoveListener<ModeHasBeenChangedEvent>(ModeHasChangedCallBack);
     }
 
+    void SwapModeFunction()
+    {
+        if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Dark) // hack need to be changed 
+        {
+
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
+
     void ModeHasChangedCallBack(ModeHasBeenChangedEvent e)
     {
         if (e == null) return;
 
-        Debug.Log("Platform DARK Is Changing Type " + e.typeOfElement);
-        if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light) // Hack Need to Be changed 
-        {
-            gameObject.SetActive(false);
-
-        }
-        else
-        {
-            gameObject.SetActive(true);
-        }
+        SwapModeFunction();
 
     }
+    
 }

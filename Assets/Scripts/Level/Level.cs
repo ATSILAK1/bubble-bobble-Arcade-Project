@@ -17,19 +17,20 @@ public class Level : MonoBehaviour , IEventHandler
     
     [SerializeField] private int levelNumber;
     [SerializeField] private int numberOfEnemy;
-    [SerializeField] private Transform spawnPointOfLevel; 
+    [SerializeField] private Transform spawnPointOfLevel;
+    private List<GameObject> lightPlatformHolder; 
+    private List<GameObject> darkPlatformHolder;
     private void Awake()
     {
         SubscribeEvents();
         numberOfEnemy = FindObjectsByType<Enemy>(sortMode: FindObjectsSortMode.None).Length;
-
-
     }
 
 
     void Start()
     {
         GameObject.Find("Player").transform.position = spawnPointOfLevel.position;
+        SwapModeFunction();    
     }
 
     // Update is called once per frame
@@ -56,23 +57,39 @@ public class Level : MonoBehaviour , IEventHandler
 
     }
 
-   
-    #region CallBack Function 
-    void ModeSwapCallBack(ModeHasBeenChangedEvent e)
+    //public void ActivateAndDesactivatePlatformFunction()
+    //{
+    //    if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light)
+    //    {
+    //        darkPlatform.ForEach(item => item.SetActive(false));
+    //        lightPlatform.ForEach(item => item.SetActive(true));
+    //    }
+    //    else
+    //    {
+    //        lightPlatform.ForEach(item => item.SetActive(false));
+    //        darkPlatform.ForEach(item => item.SetActive(true));
+    //    }
+    //}
+
+    void SwapModeFunction()
     {
-        
-        if(GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light)
+        if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light)
         {
             lightGameObject.SetActive(false);
             darkGamePbject.SetActive(true);
         }
         else
         {
-            
+
             lightGameObject.SetActive(true);
             darkGamePbject.SetActive(false);
         }
-        
+    }
+
+    #region CallBack Function 
+    void ModeSwapCallBack(ModeHasBeenChangedEvent e)
+    {
+        SwapModeFunction();
     }
     void DecrementNumberEnemyCallBack(EnemyHasBeenHitEvent e)
     {
@@ -82,6 +99,7 @@ public class Level : MonoBehaviour , IEventHandler
     }
     #endregion
 
+    
     
     } 
     
