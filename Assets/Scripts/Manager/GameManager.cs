@@ -23,20 +23,20 @@
 		{
 			Debug.Log("Mode  Current state "+ currentModeState );
 			// better to Call the camera one time than Find it 2 time 
-			var camera = GameObject.Find("Main Camera");
+			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
 
             if (currentModeState == GlobalEnum.TypeOfElement.Dark)
 			{
 				currentModeState = GlobalEnum.TypeOfElement.Light;
                 
-                camera.GetComponent<Camera>().backgroundColor = Color.gray;
+                camera.backgroundColor = Color.gray;
 			}
 			
 			else
 			{
 				currentModeState = GlobalEnum.TypeOfElement.Dark;
-                camera.GetComponent<Camera>().backgroundColor = Color.black;
+                camera.backgroundColor = Color.black;
             }
 			Debug.Log("Mode After Swap " + currentModeState);
 			
@@ -124,9 +124,10 @@
 			EventManager.Instance.AddListener<ResumeButtonClickedEvent>(ResumeButtonClicked);
 			EventManager.Instance.AddListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
 			EventManager.Instance.AddListener<QuitButtonClickedEvent>(QuitButtonClicked);
+            EventManager.Instance.AddListener<NextLevelButtonClickedEvent>(NextLevelButtonClicked);
 
-			// Score Item
-			EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
+            // Score Item
+            EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
 
 			// Enemy 
 			EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyKilled);
@@ -136,8 +137,8 @@
 
 			// Mode Swap 
 			EventManager.Instance.AddListener<ModeHasBeenChangedEvent>(ModeChange);
-			
-		}
+
+        }
 
 		public override void UnsubscribeEvents()
 		{
@@ -149,9 +150,10 @@
 			EventManager.Instance.RemoveListener<ResumeButtonClickedEvent>(ResumeButtonClicked);
 			EventManager.Instance.RemoveListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
 			EventManager.Instance.RemoveListener<QuitButtonClickedEvent>(QuitButtonClicked);
+            EventManager.Instance.RemoveListener<NextLevelButtonClickedEvent>(NextLevelButtonClicked);
 
-			//Score Item
-			EventManager.Instance.RemoveListener<ScoreItemEvent>(ScoreHasBeenGained);
+            //Score Item
+            EventManager.Instance.RemoveListener<ScoreItemEvent>(ScoreHasBeenGained);
 
 			// Enemy 
 			EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent> (EnemyKilled);
@@ -161,7 +163,8 @@
 			
 			//Mode Swap 
             EventManager.Instance.RemoveListener<ModeHasBeenChangedEvent>(ModeChange);
-        }
+
+		}
 		#endregion
 
 		#region Manager implementation
@@ -218,6 +221,11 @@
 		{
 			Application.Quit();
 		}
+
+		private void NextLevelButtonClicked(NextLevelButtonClickedEvent e)
+		{
+			NextLevel();
+        }
         #endregion
 
         #region GameState methods
@@ -266,6 +274,20 @@
 			EventManager.Instance.Raise(new GameOverEvent());
 			if(SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.GAMEOVER_SFX);
 		}
+
+        private void Victory()
+		{
+            SetTimeScale(0);
+            m_GameState = GameState.gameVictory;
+            EventManager.Instance.Raise(new GameVictoryEvent());
+        }
+
+        private void NextLevel()
+		{
+            SetTimeScale(1);
+            m_GameState = GameState.gamePlay;
+            EventManager.Instance.Raise(new GoToNextLevelEvent());
+        }
         #endregion
 
         #region CallBacks To Events issued by Ennemy 
