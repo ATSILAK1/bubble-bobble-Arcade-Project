@@ -17,8 +17,9 @@ namespace STUDENT_NAME
 		[SerializeField] GameObject m_PanelMainMenu;
 		[SerializeField] GameObject m_PanelInGameMenu;
 		[SerializeField] GameObject m_PanelGameOver;
+		[SerializeField] GameObject m_PanelNextLevel;
 
-		List<GameObject> m_AllPanels;
+        List<GameObject> m_AllPanels;
 		#endregion
 
 		#region Events' subscription
@@ -51,7 +52,8 @@ namespace STUDENT_NAME
 		{
 			if (Input.GetButtonDown("Cancel"))
 			{
-				EscapeButtonHasBeenClicked();
+				Debug.Log("Escape Button Has Been Clicked ");
+                EscapeButtonHasBeenClicked();
 			}
 		}
 		#endregion
@@ -63,7 +65,8 @@ namespace STUDENT_NAME
 			m_AllPanels.Add(m_PanelMainMenu);
 			m_AllPanels.Add(m_PanelInGameMenu);
 			m_AllPanels.Add(m_PanelGameOver);
-		}
+			m_AllPanels.Add(m_PanelNextLevel);
+        }
 
 		void OpenPanel(GameObject panel)
 		{
@@ -98,7 +101,11 @@ namespace STUDENT_NAME
 		{
 			EventManager.Instance.Raise(new QuitButtonClickedEvent());
 		}
-
+		public void NextLevelButtonHasBeenClicked()
+		{
+			Debug.Log("Next Level Button Has Been Clicked ");
+            EventManager.Instance.Raise(new NextLevelButtonClickedEvent());
+        }
 		#endregion
 
 		#region Callbacks to GameManager events
@@ -126,7 +133,12 @@ namespace STUDENT_NAME
 		{
 			OpenPanel(m_PanelGameOver);
 		}
-		#endregion
-	}
+
+        protected override void GameVictory(GameVictoryEvent e)
+        {
+            OpenPanel(m_PanelNextLevel);
+        }
+        #endregion
+    }
 
 }
