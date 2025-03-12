@@ -48,6 +48,9 @@ public class MainMenuButtonClickedEvent : SDD.Events.Event
 
 public class QuitButtonClickedEvent : SDD.Events.Event
 { }
+
+public class NextLevelButtonClickedEvent : SDD.Events.Event
+{ }
 #endregion
 
 #region Score Event
@@ -89,3 +92,4 @@ public class LevelHasBeenInstantiatedEvent : SDD.Events.Event
 {
 	public Level eLevel;
 }
+
