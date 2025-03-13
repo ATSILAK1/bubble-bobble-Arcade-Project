@@ -40,13 +40,19 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField]
     private float coyoteTimeCounter;
     
+
+
     #endregion
+    private SpriteRenderer spriteRenderer;
+    private PlayerAnimation playerAnimation;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerAnimation = GetComponent<PlayerAnimation>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         speed = 5;
     }
 
@@ -57,6 +63,7 @@ public class PlayerMovementScript : MonoBehaviour
         MovingFunction(horizontalInput);
         IsGroundedFunction();
         JumpFunction();
+        AnimationPlayerFunction();
 
     }
 
@@ -90,6 +97,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (coyoteTimeCounter > 0f && Input.GetButtonDown("Jump")  )
         {
+            Debug.Log("Jump");
             rigidbody2D.AddForce(new Vector2(rigidbody2D.linearVelocity.x, jumpForce), ForceMode2D.Impulse);
         }
         if (Input.GetButtonUp("Jump") && rigidbody2D.linearVelocityY > 0)
@@ -149,8 +157,30 @@ public class PlayerMovementScript : MonoBehaviour
         else
 
             isGrounded = false;
-        
+
     }
 
-    
+
+    private void AnimationPlayerFunction()
+    {
+
+        if(rigidbody2D.linearVelocity.x != 0 && isGrounded)
+        {
+            playerAnimation.PlayAnimation(Constants.PLAYER_RUN);
+        }
+        else if (rigidbody2D.linearVelocity.x == 0 && isGrounded)
+        {
+            playerAnimation.PlayAnimation(Constants.PLAYER_IDLE);
+        }
+       
+         if  (!isGrounded && rigidbody2D.linearVelocityY > 0)
+        {
+            playerAnimation.PlayAnimation(Constants.PLAYER_JUMP);
+        }
+        else if (!isGrounded && rigidbody2D.linearVelocityY < 0)
+        {
+            playerAnimation.PlayAnimation(Constants.PLAYER_FALL);
+        }
+    }
+
 }
