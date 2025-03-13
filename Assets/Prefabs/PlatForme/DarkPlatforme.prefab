@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.25490198, g: 0.29411766, b: 0.69803923, a: 1}
+  m_Color: {r: 0.25490198, g: 0.29411766, b: 0.69803923, a: 0.59607846}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -167,3 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b407a3b07df5a4a87d78e4d43acead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 0}
+  Collider: {fileID: 0}
+  disabledColor: {r: 0.25490198, g: 0.29411766, b: 0.69803923, a: 0.25490198}

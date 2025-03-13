@@ -21,7 +21,9 @@ public abstract class Orb : MonoBehaviour
     { 
         get { return hitDamage; } 
     }
-
+    [SerializeField]
+    // effect thats would be played for the contact of the orb with the enemy
+    protected GameObject contactEffect;
 
 
     protected void Start()
@@ -67,10 +69,11 @@ public abstract class Orb : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-        
-
 
         
+        var effect = Instantiate(contactEffect, collision.contacts[0].point, Quaternion.identity );
+        Destroy(effect, 0.5f);
+
     }
     
 }

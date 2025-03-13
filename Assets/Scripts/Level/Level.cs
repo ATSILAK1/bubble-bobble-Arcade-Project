@@ -95,7 +95,7 @@ public class Level : MonoBehaviour , IEventHandler
     {
         numberOfEnemy--;
         if (numberOfEnemy == 0)
-            EventManager.Instance.Raise(new GoToNextLevelEvent());
+            EventManager.Instance.Raise(new GameVictoryEvent());
     }
     #endregion
 

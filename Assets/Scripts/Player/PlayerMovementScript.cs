@@ -164,11 +164,11 @@ public class PlayerMovementScript : MonoBehaviour
     private void AnimationPlayerFunction()
     {
 
-        if(rigidbody2D.linearVelocity.x != 0 && isGrounded)
+        if(isGrounded && rigidbody2D.linearVelocity.x != 0)
         {
             playerAnimation.PlayAnimation(Constants.PLAYER_RUN);
         }
-        else if (rigidbody2D.linearVelocity.x == 0 && isGrounded)
+        else if (isGrounded && rigidbody2D.linearVelocity.x == 0  )
         {
             playerAnimation.PlayAnimation(Constants.PLAYER_IDLE);
         }

@@ -67,6 +67,7 @@ namespace STUDENT_NAME
 
             EventManager.Instance.Raise(new LevelHasBeenInstantiatedEvent() { eLevel = m_CurrentLevel });
             EventManager.Instance.Raise(new ModeHasBeenChangedEvent());
+            EventManager.Instance.Raise(new GameResumeEvent());
         }
         #endregion
 

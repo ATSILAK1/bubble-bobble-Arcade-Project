@@ -24,6 +24,10 @@ public class GameVictoryEvent : SDD.Events.Event
 {
 }
 
+public class LevelVictoryEvent : SDD.Events.Event
+{
+}
+
 public class GameStatisticsChangedEvent : SDD.Events.Event
 {
 	public float eBestScore { get; set; }

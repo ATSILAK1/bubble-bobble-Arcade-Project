@@ -167,3 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c2918ff9014b0468b2b1a84051fd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 0}
+  Collider: {fileID: 0}
+  disabledColor: {r: 0, g: 0.8117648, b: 0.9803922, a: 0.23921569}
