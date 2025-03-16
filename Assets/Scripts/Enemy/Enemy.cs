@@ -21,7 +21,12 @@ public abstract class Enemy : MonoBehaviour
     
     protected Rigidbody2D Rigidbody2D;
     [SerializeField]
-    protected TypeOfElement enemyType; 
+    protected TypeOfElement enemyType;
+
+    [SerializeField]
+    private GameObject inactiveSpirit;
+    
+    private GameObject inactiveSpiritInstance ;
 
     public TypeOfElement EnemyType { get { return enemyType; }  set { enemyType = value; } }
     
@@ -29,6 +34,11 @@ public abstract class Enemy : MonoBehaviour
     protected void Awake()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    private void OnEnable()
+    {
+        Destroy(inactiveSpiritInstance);
+
     }
     protected void Start()
     {
@@ -51,43 +61,63 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected void EnemyMoveFunction()
+    private void OnDisable()
     {
-       
-        if (pathTarget == null || pathTarget.Count == 0) return;
-        
-        transform.position = Vector3.MoveTowards(transform.position, pathTarget[pathListCurrentIndex].position, moveSpeed * Time.deltaTime);
-        if (Vector3.Distance( transform.position,pathTarget[pathListCurrentIndex].position ) < distanceOfDetection)
+        inactiveSpiritInstance = Instantiate(inactiveSpirit, transform.position, Quaternion.identity, transform.root);
+    }
+    private void OnDestroy()
+    {
+        if (inactiveSpiritInstance != null)
         {
-            pathListCurrentIndex++;
-            if (pathListCurrentIndex == pathTarget.Count) pathListCurrentIndex = 0;
-
+            Destroy(inactiveSpiritInstance);
         }
-        if(GetFacingDirectionFunction(transform) == Vector2.left)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-
     }
 
-    private Vector2 GetFacingDirectionFunction(Transform transform)
-    {
-        return transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-    }
+    
 
+  
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerMovementScript>() != null) 
+        if (collision.gameObject.GetComponent<PlayerMovementScript>() != null)
         {
             Debug.Log("il y a contact");
             EventManager.Instance.Raise(new PlayerHasBeenHitEvent());
         }
         Debug.Log("il Y a pas contact");
     }
+
+    protected void EnemyMoveFunction()
+    {
+        if (pathTarget == null || pathTarget.Count == 0) return;
+
+        Vector3 targetPosition = pathTarget[pathListCurrentIndex].position;
+        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        if (moveDirection.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); 
+        }
+        else if (moveDirection.x < 0)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); 
+        }
+
+       
+        if (Vector3.Distance(transform.position, targetPosition) < distanceOfDetection)
+        {
+            pathListCurrentIndex++;
+            if (pathListCurrentIndex == pathTarget.Count) pathListCurrentIndex = 0;
+        }
+    }
+    private Vector2 GetFacingDirectionFunction(Transform transform)
+    {
+        return transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    }
+
+
+  
     
 
 }
