@@ -87,6 +87,8 @@ public class ModeHasBeenChangedEvent : SDD.Events.Event
 
 public class HealtUpdateHudEvent : SDD.Events.Event{  public int eHealth; }
 #endregion
+
+#region Level Events	
 public class GoToNextLevelEvent : SDD.Events.Event
 {
 
@@ -97,3 +99,11 @@ public class LevelHasBeenInstantiatedEvent : SDD.Events.Event
 	public Level eLevel;
 }
 
+#endregion
+
+#region Collectible Events
+
+public class KeyHasBeenCollectedEvent : SDD.Events.Event
+{
+}
+#endregion
