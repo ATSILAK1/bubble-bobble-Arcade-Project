@@ -7,7 +7,7 @@ namespace STUDENT_NAME
 	using UnityEngine;
 	using System.Linq;
 	using SDD.Events;
-    
+    using DG.Tweening;
 	public class LevelManager : Manager<LevelManager>
 	{
         [Header("LevelsManager")]

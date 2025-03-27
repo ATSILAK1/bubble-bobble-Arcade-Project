@@ -40,7 +40,11 @@ public class PlayerAttackScript : MonoBehaviour
                                                                   // Double orb not our feature
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeFire)
         {
+
+           
             Debug.Log(GameManager.Instance.CurrentModeState.ToString());
+
+            SfxManager.Instance.PlaySfx2D("SpellCast");
             if (currentState == GlobalEnum.TypeOfElement.Dark) 
                 ShootFunction(darkOrb);
             else

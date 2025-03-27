@@ -28,6 +28,10 @@ public abstract class Enemy : MonoBehaviour
     
     private GameObject inactiveSpiritInstance ;
 
+    //[SerializeField]
+    //private float waveAmplitude = 0.1f;
+    //private float waveFrequency = 1f;
+
     public TypeOfElement EnemyType { get { return enemyType; }  set { enemyType = value; } }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,12 +69,14 @@ public abstract class Enemy : MonoBehaviour
     {
         inactiveSpiritInstance = Instantiate(inactiveSpirit, transform.position, Quaternion.identity, transform.root);
     }
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         if (inactiveSpiritInstance != null)
         {
+            
             Destroy(inactiveSpiritInstance);
         }
+       // SfxManager.Instance.PlaySfx2D("EnemyDeath");
     }
 
     
@@ -88,6 +94,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void EnemyMoveFunction()
     {
+       
         if (pathTarget == null || pathTarget.Count == 0) return;
 
         Vector3 targetPosition = pathTarget[pathListCurrentIndex].position;
@@ -110,6 +117,9 @@ public abstract class Enemy : MonoBehaviour
             pathListCurrentIndex++;
             if (pathListCurrentIndex == pathTarget.Count) pathListCurrentIndex = 0;
         }
+
+        //waveFrequency += Time.deltaTime;
+        //transform.position = new Vector3(transform.position.x,Mathf.Sin(waveFrequency)*waveAmplitude, 0);
     }
     private Vector2 GetFacingDirectionFunction(Transform transform)
     {

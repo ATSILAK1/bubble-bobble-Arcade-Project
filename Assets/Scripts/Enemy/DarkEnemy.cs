@@ -19,4 +19,6 @@ public class DarkEnemy : Enemy , IDarkElement
     {
         base.OnCollisionEnter2D(collision);
     }
+
+
 }

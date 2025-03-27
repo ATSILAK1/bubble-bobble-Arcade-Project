@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TILES_KARIMA_DO_0: 6731081355340344368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

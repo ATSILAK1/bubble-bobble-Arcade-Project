@@ -20,13 +20,19 @@ public class Collectible : MonoBehaviour , ICollectible
     {
         Destroy(gameObject);
         EventManager.Instance.Raise(new ScoreItemEvent() { eScore = scoreGiven });
+        SfxManager.Instance.PlaySfx2D("CoinPickUp");
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision == null)
-            return; 
+       
+    }
 
-        if (collision.gameObject.GetComponent<PlayerMovementScript>() )
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other == null)
+            return;
+
+        if (other.gameObject.GetComponent<PlayerMovementScript>())
         {
             Collect();
         }

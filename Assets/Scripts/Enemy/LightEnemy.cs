@@ -19,4 +19,6 @@ public class LightEnemy : Enemy , ILightElement
     {
         base.OnCollisionEnter2D(collision);
     }
+
+   
 }

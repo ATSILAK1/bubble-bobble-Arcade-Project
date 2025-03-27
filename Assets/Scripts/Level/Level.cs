@@ -76,6 +76,7 @@ public class Level : MonoBehaviour , IEventHandler
         if (GameManager.Instance.CurrentModeState == GlobalEnum.TypeOfElement.Light)
         {
             lightGameObject.SetActive(false);
+
             darkGamePbject.SetActive(true);
         }
         else

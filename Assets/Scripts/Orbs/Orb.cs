@@ -47,6 +47,8 @@ public abstract class Orb : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
+    
+    
     public abstract void InitOrb();
     public abstract void DamageEnemyFunction();
 
@@ -66,6 +68,7 @@ public abstract class Orb : MonoBehaviour
         if ( gameObjectOfCollision.GetComponent<Enemy>() != null  )
         { 
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() );
+            
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

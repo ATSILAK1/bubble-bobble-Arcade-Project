@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7979054, y: -0.49587476, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3143581715009889348}
@@ -96,7 +96,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2.0405, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2963318155291230872}
@@ -175,6 +175,7 @@ MonoBehaviour:
   pathListCurrentIndex: 1
   distanceOfDetection: 1
   enemyType: 0
+  inactiveSpirit: {fileID: 7657008368058685105, guid: d7f735ca044e500468a0967674c0a367, type: 3}
 --- !u!50 &1748047774499804699
 Rigidbody2D:
   serializedVersion: 5

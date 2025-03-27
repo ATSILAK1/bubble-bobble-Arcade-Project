@@ -16,6 +16,7 @@ public class PlaySoundOnClick : MonoBehaviour {
 	
 	void PlaySound()
 	{
+		Debug.LogError(m_SoundName);
 		if (SfxManager.Instance) SfxManager.Instance.PlaySfx2D(m_SoundName);
 	}
 }

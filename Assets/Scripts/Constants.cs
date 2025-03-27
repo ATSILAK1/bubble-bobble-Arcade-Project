@@ -8,8 +8,14 @@ public static class Constants {
 
 	//Sfx
 	public static string GAMEOVER_SFX = "GameOver";
+    public static string JUMP_SFX = "Jump";
+    public static string COIN_SFX = "CoinPickUp";
+    public static string VICTORY_SFX = "Victory";
+    public static string BUTTON_SFX = "Button";
+    public static string SHOOT_SFX = "Shoot";
+   
 
-	public static string PLAYER_JUMP = "jump";
+    public static string PLAYER_JUMP = "jump";
     public static string PLAYER_DEATH = "death";
     public static string PLAYER_HURT = "hurt";
 

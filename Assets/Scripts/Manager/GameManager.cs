@@ -3,6 +3,9 @@
     using System.Collections;
     using SDD.Events;
     using UnityEngine;
+	using DG.Tweening;
+    using System.Drawing;
+    using Color = UnityEngine.Color;
 
     public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
 	
@@ -24,23 +27,18 @@
 			Debug.Log("Mode  Current state "+ currentModeState );
 			// better to Call the camera one time than Find it 2 time 
 			var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-
-
-            if (currentModeState == GlobalEnum.TypeOfElement.Dark)
+			if (currentModeState == GlobalEnum.TypeOfElement.Dark)
 			{
 				currentModeState = GlobalEnum.TypeOfElement.Light;
-                
-                camera.backgroundColor = Color.gray;
-			}
-			
+
+                //DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, Color.grey, 1);
+            }
 			else
 			{
 				currentModeState = GlobalEnum.TypeOfElement.Dark;
-                camera.backgroundColor = Color.black;
+				 //DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, Color.black, 1);
             }
 			Debug.Log("Mode After Swap " + currentModeState);
-			
-
         }
 
 

@@ -5,4 +5,8 @@
 	<SFX name="Tick" volume="1" />  
 	<SFX name="Victory" volume="1" /> 
 	<SFX name="GameOver" volume="1" /> 
+	<SFX name="Jump" volume="1" />
+	<SFX name="SpellCast" volume="1" />
+	<SFX name="EnemyDeath" volume="1" />
+	<SFX name="CoinPickUp" volume="1" />
 </SFX_SETUP>
